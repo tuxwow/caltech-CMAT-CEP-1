@@ -1,5 +1,5 @@
 - name: Build and deploy web application
-  hosts: localhost
+  hosts: webserver
   become: true
   become_user: root
   vars:
