@@ -1,2 +1,2 @@
-[webserver]
+[localhost]
 172.31.15.188 ansible_user=ansiuser
