@@ -1,0 +1,17 @@
+- name: Build and deploy web application
+  hosts: webserver
+  become: true
+  become_user: root
+  vars:
+   repo_url: https://github.com/Sonal0409/DevOpsCodeDemo.git
+  tasks:
+  - name: Clone the repo on worker node
+    git: repo={{repo_url}} dest=/tmp/devopscode
+  - name: Maven to build the code
+    command: chdir=/tmp/devopscode mvn package
+  - name: From Target folder move the artifact to same directory as that of dockerfile
+    copy: src=/tmp/devopscode/target/addressbook.war dest=/tmp/devopscode remote_src=yes
+  - name: Build the Image from dockerfile
+    command: chdir=/tmp/devopscode docker build -t myimage:ansible .
+  - name: Run the image to deploy application on tomcat container
+    command: docker run -d -P myimage:ansible
