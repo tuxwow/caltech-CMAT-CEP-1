@@ -7,6 +7,6 @@
     package: name={{item}} state=present
     loop:
      - maven
-     - docker.io
+     - docker
   - name: Start docker service
     service: name=docker state=started
